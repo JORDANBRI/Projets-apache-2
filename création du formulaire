@@ -1,18 +1,18 @@
-#CRÉATION DE LA BASE DE DONNÉES MARIADB
+# CRÉATION DE LA BASE DE DONNÉES MARIADB
 
-sudo update
-sudo apt install mysql 
+`` sudo update ``
+`` sudo apt install mysql `` 
 
 
 ### ajoute  des  page web dans apache 2
 
-debian@vps-31131bf6:/var/www/html$ ls
-formulaire.html  index.html  info.php  test.php
+``debian@vps-31131bf6:/var/www/html$ ls``
+``formulaire.html  index.html  info.php  test.php``
 
 ##CREATION DU FORMULAIRE EN HTML 
 
 
-'''
+```
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,11 +34,11 @@ formulaire.html  index.html  info.php  test.php
     </form>
 </body>
 </html>
-'''
+```
 [LINK] ( http://vps-31131bf6.vps.ovh.net/formulaire.html) 
 
 ##CRÉATION DE LA PARTIE DYNAMIQUE DE LA PAGE EN PHP 
-'''
+```
 <?php
 function connect() {
     // Les informations de connexion
@@ -85,6 +85,5 @@ if (mysqli_query($conn, $sql)) {
 // Fermer la connexion
 mysqli_close($conn);
 ?>
-'''
+```
 [Link] ( http://vps-31131bf6.vps.ovh.net/test.php)
-
