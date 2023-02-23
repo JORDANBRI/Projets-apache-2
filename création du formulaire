@@ -1,0 +1,90 @@
+#CRÉATION DE LA BASE DE DONNÉES MARIADB
+
+sudo update
+sudo apt install mysql 
+
+
+### ajoute  des  page web dans apache 2
+
+debian@vps-31131bf6:/var/www/html$ ls
+formulaire.html  index.html  info.php  test.php
+
+##CREATION DU FORMULAIRE EN HTML 
+
+
+'''
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulaire d'enregistrement</title>
+</head>
+<body>
+    <h2>Enregistrement utilisateur</h2>
+    <form method="post" action="test.php">
+        <label for="nom">Nom:</label>
+        <input type="text" name="nom" required><br>
+
+        <label for="prenom">Prénom:</label>
+        <input type="text" name="prenom" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" required><br>
+
+        <input type="submit" name="enregistrer" value="Enregistrer">
+    </form>
+</body>
+</html>
+'''
+[LINK] ( http://vps-31131bf6.vps.ovh.net/formulaire.html) 
+
+##CRÉATION DE LA PARTIE DYNAMIQUE DE LA PAGE EN PHP 
+'''
+<?php
+function connect() {
+    // Les informations de connexion
+    $host = "localhost";
+    $username = "prodexamdb";
+    $password = "Julolebro";
+    $dbname = "blog";
+
+    // La connexion à la base de données
+    $conn = mysqli_connect($host, $username, $password, $dbname);
+
+    // Vérifier si la connexion a réussi
+    if (!$conn) {
+        die("La connexion a échoué: " . mysqli_connect_error());
+    }
+
+    // Retourner l'objet de connexion
+    return $conn;
+}
+
+// Connexion à la base de données
+$conn = mysqli_connect("localhost", "prodexamdb", "Julolebro", "blog");
+
+// Vérifier si la connexion a réussi
+if (!$conn) {
+    die("La connexion a échoué: " . mysqli_connect_error());
+}
+
+// Récupérer les informations saisies dans le formulaire
+$nom = $_POST['nom'];
+$prenom = $_POST['prenom'];
+$email = $_POST['email'];
+
+// Préparer la requête SQL pour insérer les données dans la table 'information'
+$sql = "INSERT INTO information (nom, prenom, email) VALUES ('$nom', '$prenom', '$email')";
+
+// Exécuter la requête SQL
+if (mysqli_query($conn, $sql)) {
+    echo "Enregistrement réussi";
+} else {
+    echo "Erreur: " . mysqli_error($conn);
+}
+
+// Fermer la connexion
+mysqli_close($conn);
+?>
+'''
+[Link] ( http://vps-31131bf6.vps.ovh.net/test.php)
+
